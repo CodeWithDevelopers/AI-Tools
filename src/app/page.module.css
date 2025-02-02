@@ -1,0 +1,160 @@
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+  border-radius: 16px;
+  margin-bottom: 60px;
+}
+
+.heroTitle {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: #666;
+  max-width: 800px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  position: relative;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #f0f0f0;
+}
+
+/* Tool Cards Colors */
+.cardGrid > .card:nth-child(1) {
+  background: linear-gradient(145deg, #e6f7ff 0%, #ffffff 100%);
+  border-top: 4px solid #1890ff;
+}
+
+.cardGrid > .card:nth-child(2) {
+  background: linear-gradient(145deg, #f9f0ff 0%, #ffffff 100%);
+  border-top: 4px solid #722ed1;
+}
+
+.cardGrid > .card:nth-child(3) {
+  background: linear-gradient(145deg, #e6fffb 0%, #ffffff 100%);
+  border-top: 4px solid #13c2c2;
+}
+
+.cardGrid > .card:nth-child(4) {
+  background: linear-gradient(145deg, #fff0f6 0%, #ffffff 100%);
+  border-top: 4px solid #eb2f96;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.cardIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  font-size: 24px;
+  position: relative;
+  z-index: 1;
+  color: white;
+}
+
+/* Icon Colors */
+.cardGrid > .card:nth-child(1) .cardIcon {
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+}
+
+.cardGrid > .card:nth-child(2) .cardIcon {
+  background: linear-gradient(135deg, #722ed1 0%, #531dab 100%);
+}
+
+.cardGrid > .card:nth-child(3) .cardIcon {
+  background: linear-gradient(135deg, #13c2c2 0%, #006d75 100%);
+}
+
+.cardGrid > .card:nth-child(4) .cardIcon {
+  background: linear-gradient(135deg, #eb2f96 0%, #c41d7f 100%);
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.cardDescription {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.features {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.featuresTitle {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 48px;
+}
+
+/* Feature Cards Colors */
+.features .card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.features .card:nth-child(1) {
+  border-top: 4px solid #52c41a;
+}
+
+.features .card:nth-child(2) {
+  border-top: 4px solid #faad14;
+}
+
+.features .card:nth-child(3) {
+  border-top: 4px solid #ff4d4f;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+
+  .cardGrid {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+}
