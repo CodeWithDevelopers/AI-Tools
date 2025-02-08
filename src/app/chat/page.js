@@ -1,16 +1,16 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
-import { 
-  Card, 
-  Input, 
-  Button, 
-  Typography, 
+import {
+  Card,
+  Input,
+  Button,
+  Typography,
   Avatar,
   message,
   Tooltip
 } from 'antd';
-import { 
-  SendOutlined, 
+import {
+  SendOutlined,
   RobotOutlined,
   UserOutlined,
   DeleteOutlined,
@@ -91,7 +91,7 @@ export default function ChatbotPage() {
 
     try {
       abortControllerRef.current = new AbortController();
-      
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -150,9 +150,9 @@ export default function ChatbotPage() {
         const errorTimestamp = new Date().toLocaleTimeString();
         setMessages(prev => [
           ...prev,
-          { 
-            role: 'assistant', 
-            content: '❌ Sorry, I encountered an error. Please try again.', 
+          {
+            role: 'assistant',
+            content: '❌ Sorry, I encountered an error. Please try again.',
             timestamp: errorTimestamp,
             isError: true
           }
@@ -188,16 +188,16 @@ export default function ChatbotPage() {
 
   const renderMessage = (msg, index) => {
     const isUser = msg.role === 'user';
-    
+
     return (
-      <div 
-        key={index} 
+      <div
+        key={index}
         className={`${styles.message} ${isUser ? styles.userMessage : styles.botMessage}`}
       >
         <Avatar
           icon={isUser ? <UserOutlined /> : <RobotOutlined />}
           className={styles.avatar}
-          style={{ 
+          style={{
             backgroundColor: isUser ? '#1890ff' : (msg.isError ? '#ff4d4f' : '#52c41a')
           }}
         />
@@ -222,7 +222,7 @@ export default function ChatbotPage() {
         </Text>
       </div>
 
-      <Card className={styles.chatCard} bordered={false}>
+      <Card style={{ "padding": '0 12px' }} className={styles.chatCard} bordered={false}>
         <div className={styles.chatHeader}>
           <div className={styles.headerInfo}>
             <RobotOutlined className={styles.botIcon} />
@@ -234,9 +234,9 @@ export default function ChatbotPage() {
             </div>
           </div>
           <Tooltip title="Clear chat history">
-            <Button 
-              type="text" 
-              icon={<DeleteOutlined />} 
+            <Button
+              type="text"
+              icon={<DeleteOutlined />}
               onClick={clearChat}
             />
           </Tooltip>
@@ -282,6 +282,28 @@ export default function ChatbotPage() {
           <div ref={messagesEndRef} />
         </div>
 
+        <div className={styles.inputSection}>
+          <TextArea
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Type your message here... (Press Enter to send)"
+            autoSize={{ minRows: 1, maxRows: 4 }}
+            disabled={isTyping}
+          />
+          <div className={styles.sendIconWrapper}>
+            <Tooltip title={isTyping ? 'Assistant is typing...' : 'Send message'}>
+              <div
+                className={`${styles.sendIcon} ${input.trim() ? styles.sendIconActive : ''}`}
+                onClick={input.trim() ? handleSend : undefined}
+              >
+                <SendOutlined />
+              </div>
+            </Tooltip>
+          </div>
+        </div>
+
         {showScrollButton && (
           <Tooltip title="Scroll to bottom">
             <Button
@@ -293,29 +315,8 @@ export default function ChatbotPage() {
             />
           </Tooltip>
         )}
-      </Card>
 
-      <div className={styles.inputSection}>
-        <TextArea
-          ref={inputRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={handleKeyPress}
-          placeholder="Type your message here... (Press Enter to send)"
-          autoSize={{ minRows: 1, maxRows: 4 }}
-          disabled={isTyping}
-        />
-        <div className={styles.sendIconWrapper}>
-          <Tooltip title={isTyping ? 'Assistant is typing...' : 'Send message'}>
-            <div 
-              className={`${styles.sendIcon} ${input.trim() ? styles.sendIconActive : ''}`}
-              onClick={input.trim() ? handleSend : undefined}
-            >
-              <SendOutlined />
-            </div>
-          </Tooltip>
-        </div>
-      </div>
+      </Card>
     </div>
   );
 }

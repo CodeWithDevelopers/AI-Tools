@@ -14,13 +14,23 @@ export async function middleware(request) {
 
   // If it's a protected path and no token exists, redirect to login
   if (isProtectedPath && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
+    const loginUrl = new URL('/login', request.url);
+    // Preserve the original path as the redirect parameter
+    loginUrl.searchParams.set('redirect', path);
+    return NextResponse.redirect(loginUrl);
   }
 
   // If user is logged in and tries to access auth pages, redirect to dashboard
   if (isAuthPath && token) {
     try {
       verify(token, process.env.JWT_SECRET);
+      // Check if there's a redirect parameter
+      const redirectTo = request.nextUrl.searchParams.get('redirect');
+      // If there's a redirect parameter and it's a protected path, go there
+      if (redirectTo && protectedPaths.some(pp => redirectTo.startsWith(pp))) {
+        return NextResponse.redirect(new URL(redirectTo, request.url));
+      }
+      // Otherwise, go to dashboard
       return NextResponse.redirect(new URL('/dashboard', request.url));
     } catch (error) {
       // If token is invalid, remove it and continue to auth page

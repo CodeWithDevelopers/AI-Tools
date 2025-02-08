@@ -355,7 +355,7 @@ export default function YoutubePage() {
       </Row>
 
       <Card className={styles.mainCard}>
-        <Steps current={currentStep} className={styles.steps}>
+        {/* <Steps current={currentStep} className={styles.steps}>
           <Step 
             title="Input" 
             description="Enter video URL" 
@@ -371,7 +371,7 @@ export default function YoutubePage() {
             description="View insights" 
             icon={<CheckCircleOutlined />} 
           />
-        </Steps>
+        </Steps> */}
 
         <Tabs 
           activeKey={activeTab}

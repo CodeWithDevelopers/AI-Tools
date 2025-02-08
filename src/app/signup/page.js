@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Input, Button, Checkbox, Form } from 'antd';
+import { Input, Button, Checkbox, Form, message } from 'antd';
 import { 
   UserOutlined, 
   LockOutlined, 
@@ -12,17 +13,41 @@ import {
   SecurityScanOutlined,
   TeamOutlined
 } from '@ant-design/icons';
-import styles from '../styles/auth.module.css';
+import styles from './page.module.css';
 
 export default function SignUp() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     setLoading(true);
-    // Handle signup logic here
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: values.name,
+          email: values.email,
+          password: values.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        message.success('Account created successfully!');
+        router.push('/login');
+      } else {
+        message.error(data.error || 'Failed to create account');
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      message.error('An error occurred during signup');
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -62,24 +87,11 @@ export default function SignUp() {
       </div>
 
       <div className={styles.rightSection}>
-        <div className={styles.formContainer}>
+        <div className={styles.formCard}>
           <div className={styles.header}>
             <h1 className={styles.title}>Create Account</h1>
             <p className={styles.subtitle}>Join us to access all AI tools</p>
           </div>
-
-          <div className={styles.socialButtons}>
-            <div className={`${styles.socialButton} ${styles.google}`}>
-              <GoogleOutlined />
-              Google
-            </div>
-            <div className={`${styles.socialButton} ${styles.github}`}>
-              <GithubOutlined />
-              GitHub
-            </div>
-          </div>
-
-          <div className={styles.divider}>or sign up with email</div>
 
           <Form
             name="signup"
@@ -95,6 +107,7 @@ export default function SignUp() {
                 prefix={<UserOutlined />} 
                 placeholder="Full Name" 
                 size="large"
+                className={styles.input}
               />
             </Form.Item>
 
@@ -109,6 +122,7 @@ export default function SignUp() {
                 prefix={<MailOutlined />} 
                 placeholder="Email" 
                 size="large"
+                className={styles.input}
               />
             </Form.Item>
 
@@ -123,6 +137,7 @@ export default function SignUp() {
                 prefix={<LockOutlined />}
                 placeholder="Password"
                 size="large"
+                className={styles.input}
               />
             </Form.Item>
 
@@ -137,24 +152,44 @@ export default function SignUp() {
               ]}
             >
               <Checkbox>
-                I agree to the <Link href="/terms">Terms of Service</Link> and{' '}
-                <Link href="/privacy">Privacy Policy</Link>
+                I agree to the <Link href="/terms" className={styles.footerLink}>Terms of Service</Link> and{' '}
+                <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
               </Checkbox>
             </Form.Item>
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading} block>
+              <Button 
+                type="primary" 
+                htmlType="submit" 
+                loading={loading} 
+                className={styles.submitButton}
+              >
                 Create Account
               </Button>
             </Form.Item>
+
+            <div className={styles.socialLogin}>
+              <p className={styles.divider}>Or continue with</p>
+              <div className={styles.socialButtons}>
+                <Button 
+                  icon={<GoogleOutlined />}
+                  className={`${styles.socialButton} ${styles.google}`}
+                >
+                  Google
+                </Button>
+                <Button 
+                  icon={<GithubOutlined />}
+                  className={`${styles.socialButton} ${styles.github}`}
+                >
+                  GitHub
+                </Button>
+              </div>
+            </div>
           </Form>
 
-          <div className={styles.switchText}>
-            Already have an account?
-            <Link href="/login" className={styles.switchLink}>
-              Log in
-            </Link>
-          </div>
+          <p className={styles.signupText}>
+            Already have an account? <Link className={styles.signupLink} href="/login">Log in</Link>
+          </p>
         </div>
       </div>
     </div>

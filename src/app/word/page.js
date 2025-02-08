@@ -284,6 +284,7 @@ export default function WordPage() {
                   disabled={askingQuestion}
                 />
                 <Button
+                  style={{ marginTop: '1rem', minWidth: '100%' }}
                   type="primary"
                   icon={<SendOutlined />}
                   onClick={handleAskQuestion}
@@ -365,7 +366,7 @@ export default function WordPage() {
       </Row>
 
       <Card className={styles.mainCard}>
-        <Steps current={currentStep} className={styles.steps}>
+        {/* <Steps current={currentStep} className={styles.steps}>
           <Step 
             title="Upload" 
             description="Upload your Word document" 
@@ -381,7 +382,7 @@ export default function WordPage() {
             description="View insights" 
             icon={<CheckCircleOutlined />} 
           />
-        </Steps>
+        </Steps> */}
 
         <Tabs 
           activeKey={activeTab}

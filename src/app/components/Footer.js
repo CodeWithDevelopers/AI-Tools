@@ -16,8 +16,8 @@ const Footer = () => {
   const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
-  // Don't show the footer on the chatbot route
-  if (pathname === '/chatbot') {
+  // Don't show the footer on the chat route
+  if (pathname === '/chat') {
     return null;
   }
 
