@@ -22,6 +22,13 @@
   align-items: center;
 }
 
+/* Adjust container padding for mobile */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem 1rem;
+  }
+}
+
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
@@ -34,21 +41,79 @@
   color: #667eea;
 }
 
-.nav {
+.desktopNav {
   display: flex;
   align-items: center;
   gap: 2rem;
 }
 
-.link {
-  color: #4a5568;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s ease;
+@media (max-width: 768px) {
+  .desktopNav {
+    display: none;
+  }
 }
 
-.link:hover,
-.link.active {
+.mobileNav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileNav {
+    display: block;
+  }
+}
+
+.mobileMenuButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 24px;
+  color: #4a5568;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobileMenu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.mobileMenu.isOpen {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Ant Design Menu Customization */
+.mobileMenu :global(.ant-menu) {
+  border: none;
+  background: transparent;
+}
+
+.mobileMenu :global(.ant-menu-item) {
+  margin: 4px 0;
+  height: 48px;
+  line-height: 48px;
+}
+
+.mobileMenu :global(.ant-menu-item a) {
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.mobileMenu :global(.ant-menu-item-selected a) {
   color: #667eea;
 }
 
@@ -65,6 +130,7 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* Nest global selectors inside a local class */
 .profileAvatar :global(.ant-avatar) {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
@@ -92,60 +158,14 @@
   color: white;
 }
 
-.mobileMenuButton {
-  display: none;
-  background: none;
-  border: none;
-  color: #4a5568;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.mobileMenu {
-  display: none;
-  position: fixed;
-  top: 72px;
-  left: 0;
-  right: 0;
-  background: white;
-  padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transform: translateY(-100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.mobileMenuOpen {
-  transform: translateY(0);
-}
-
-.mobileLink {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #4a5568;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
-}
-
-.mobileLink:hover,
-.mobileLink.active {
-  background-color: #f7fafc;
-  color: #667eea;
-}
-
-.mobileProfileMenu {
-  border-top: 1px solid #e2e8f0;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-}
-
 .getStartedMobile {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-align: center;
   margin-top: 0.5rem;
   border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: block;
 }
 
 .getStartedMobile:hover {
@@ -153,16 +173,9 @@
   opacity: 0.9;
 }
 
+/* Responsive adjustments for mobile screens */
 @media (max-width: 768px) {
-  .nav {
-    display: none;
-  }
-
-  .mobileMenuButton {
-    display: block;
-  }
-
-  .mobileMenu {
-    display: block;
+  .logo {
+    font-size: 1.25rem;
   }
 }

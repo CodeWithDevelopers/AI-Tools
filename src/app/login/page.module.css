@@ -367,42 +367,58 @@
 }
 
 /* Responsive Design */
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .leftSection {
     display: block;
   }
-
-  .container {
-    padding: 2rem;
-    align-items: center;
-    gap: 2rem;
-  }
-
+  
   .formCard {
-    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    padding: 1rem;
+    padding-top: 40px;
+  }
+  
+  .formCard {
+    padding: 1.25rem;
+    max-width: 100%;
+  }
+  
+  .welcomeTitle {
+    font-size: 2rem;
+  }
+  
+  .welcomeDescription {
+    font-size: 1rem;
+  }
+  
+  .feature {
+    font-size: 0.9rem;
+  }
+  
+  .featureIcon {
+    width: 32px;
+    height: 32px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
     padding: 0.75rem;
-    padding-top: 70px;
+    padding-top: 30px;
   }
-
+  
   .formCard {
-    padding: 1.25rem;
+    padding: 1rem;
+    box-shadow: none;
+    background: transparent;
   }
-
-  .title {
-    font-size: 1.25rem !important;
-  }
-
-  .subtitle {
-    font-size: 0.8125rem !important;
-  }
-
-  .input,
-  .submitButton {
-    font-size: 0.8125rem !important;
+  
+  .welcomeTitle {
+    font-size: 1.75rem;
   }
 }
